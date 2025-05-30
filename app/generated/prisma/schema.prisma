@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  EN_ATTENTE
+  REFUSER
+  ACCEPTER
+}
+
+model chambre {
+  id_chambre     Int     @id @default(autoincrement())
+  numero_chambre Int
+  prix_nuit      Int
+  prix_jour      Int
+  type           String
+  capacite       String
+  photo          String?
+
+  reservations reservation[]
+}
+
+model reservation {
+  id_reservation   Int      @id @default(autoincrement())
+  nom_client       String
+  prenom_client    String
+  telephone1       String
+  telephone2       String?
+  email            String
+  date_arrivee     DateTime
+  date_depart      DateTime
+  date_reservation DateTime
+  prix_total       String
+  status           Status   @default(EN_ATTENTE)
+
+  id_chambre Int
+  chambre    chambre @relation(fields: [id_chambre], references: [id_chambre])
+}
+
+enum Role {
+  caissiere
+  administrateur
+}
+
+model utilisateur {
+  id_utilisateur Int    @id @default(autoincrement())
+  nom            String
+  prenom         String
+  email          String @unique
+  password       String
+  role           Role   @default(caissiere)
+}
