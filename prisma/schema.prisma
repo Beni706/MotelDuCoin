@@ -47,6 +47,7 @@ model reservation {
 
   id_chambre Int
   chambre    chambre @relation(fields: [id_chambre], references: [id_chambre])
+  facture    facture?
 }
 
 enum Role {
@@ -61,4 +62,21 @@ model utilisateur {
   email             String @unique
   password          String
   role              Role   @default(caissiere)
+
+  factures facture[]
+}
+
+
+model facture {
+  id_facture    Int      @id @default(autoincrement())
+  date_creation DateTime @default(now())
+  montant_total String   // Correspond au prix_total de la réservation au moment de la création
+
+  // Relation à la réservation (chaque facture est liée à une seule réservation)
+  id_reservation Int         @unique // @unique garantit une seule facture par réservation
+  reservation    reservation @relation(fields: [id_reservation], references: [id_reservation])
+
+  // Relation à l'utilisateur qui a créé la facture
+  id_utilisateur Int
+  utilisateur    utilisateur @relation(fields: [id_utilisateur], references: [id_utilisateur])
 }

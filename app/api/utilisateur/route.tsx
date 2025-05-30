@@ -19,7 +19,12 @@ export async function GET(request: Request) {
 
   try {
     // Récupère tous les utilisateurs de la base de données
-    const utilisateurs = await prisma.utilisateur.findMany();
+    const utilisateurs = await prisma.utilisateur.findMany({
+      include: {
+        factures: true,
+      },
+     
+    });
     return NextResponse.json(utilisateurs, { status: 200 });
 
   } catch (error) {

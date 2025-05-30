@@ -22,9 +22,14 @@ export async function GET(request: Request, { params }: { params: { id: string }
     try {
         /// Conversion en entier pour que l'ORM puisse faire la comparaison
         const id = parseInt(params.id)
-        const utilisateur = await prisma.utilisateur.findUnique({ where: { id_utilisateur: id } })
+        const utilisateur = await prisma.utilisateur.findUnique({ 
+            where: { id_utilisateur: id },
+            include: {
+                factures: true, // Inclure les factures associées à l'utilisateur
+            },
+        })
 
-        /// Si l'admin n'existe pas dans la base de donees
+        /// Si l'utilisateur n'existe pas dans la base de donees
         if (!utilisateur) {
             return NextResponse.json({ error: "Utilisateur non trouvé" }, { status: 404 });
 

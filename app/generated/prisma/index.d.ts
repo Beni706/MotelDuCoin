@@ -28,6 +28,11 @@ export type reservation = $Result.DefaultSelection<Prisma.$reservationPayload>
  * 
  */
 export type utilisateur = $Result.DefaultSelection<Prisma.$utilisateurPayload>
+/**
+ * Model facture
+ * 
+ */
+export type facture = $Result.DefaultSelection<Prisma.$facturePayload>
 
 /**
  * Enums
@@ -213,6 +218,16 @@ export class PrismaClient<
     * ```
     */
   get utilisateur(): Prisma.utilisateurDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.facture`: Exposes CRUD operations for the **facture** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Factures
+    * const factures = await prisma.facture.findMany()
+    * ```
+    */
+  get facture(): Prisma.factureDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -655,7 +670,8 @@ export namespace Prisma {
   export const ModelName: {
     chambre: 'chambre',
     reservation: 'reservation',
-    utilisateur: 'utilisateur'
+    utilisateur: 'utilisateur',
+    facture: 'facture'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -674,7 +690,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "chambre" | "reservation" | "utilisateur"
+      modelProps: "chambre" | "reservation" | "utilisateur" | "facture"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -900,6 +916,80 @@ export namespace Prisma {
           }
         }
       }
+      facture: {
+        payload: Prisma.$facturePayload<ExtArgs>
+        fields: Prisma.factureFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.factureFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.factureFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload>
+          }
+          findFirst: {
+            args: Prisma.factureFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.factureFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload>
+          }
+          findMany: {
+            args: Prisma.factureFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload>[]
+          }
+          create: {
+            args: Prisma.factureCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload>
+          }
+          createMany: {
+            args: Prisma.factureCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.factureCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload>[]
+          }
+          delete: {
+            args: Prisma.factureDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload>
+          }
+          update: {
+            args: Prisma.factureUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload>
+          }
+          deleteMany: {
+            args: Prisma.factureDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.factureUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.factureUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload>[]
+          }
+          upsert: {
+            args: Prisma.factureUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$facturePayload>
+          }
+          aggregate: {
+            args: Prisma.FactureAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFacture>
+          }
+          groupBy: {
+            args: Prisma.factureGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FactureGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.factureCountArgs<ExtArgs>
+            result: $Utils.Optional<FactureCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -987,6 +1077,7 @@ export namespace Prisma {
     chambre?: chambreOmit
     reservation?: reservationOmit
     utilisateur?: utilisateurOmit
+    facture?: factureOmit
   }
 
   /* Types for Logging */
@@ -1104,6 +1195,37 @@ export namespace Prisma {
    */
   export type ChambreCountOutputTypeCountReservationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: reservationWhereInput
+  }
+
+
+  /**
+   * Count Type UtilisateurCountOutputType
+   */
+
+  export type UtilisateurCountOutputType = {
+    factures: number
+  }
+
+  export type UtilisateurCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    factures?: boolean | UtilisateurCountOutputTypeCountFacturesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UtilisateurCountOutputType without action
+   */
+  export type UtilisateurCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UtilisateurCountOutputType
+     */
+    select?: UtilisateurCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UtilisateurCountOutputType without action
+   */
+  export type UtilisateurCountOutputTypeCountFacturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: factureWhereInput
   }
 
 
@@ -2510,6 +2632,7 @@ export namespace Prisma {
     status?: boolean
     id_chambre?: boolean
     chambre?: boolean | chambreDefaultArgs<ExtArgs>
+    facture?: boolean | reservation$factureArgs<ExtArgs>
   }, ExtArgs["result"]["reservation"]>
 
   export type reservationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2562,6 +2685,7 @@ export namespace Prisma {
   export type reservationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_reservation" | "nom_client" | "prenom_client" | "telephone1" | "telephone2" | "email" | "date_arrivee" | "date_depart" | "date_reservation" | "prix_total" | "status" | "id_chambre", ExtArgs["result"]["reservation"]>
   export type reservationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     chambre?: boolean | chambreDefaultArgs<ExtArgs>
+    facture?: boolean | reservation$factureArgs<ExtArgs>
   }
   export type reservationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     chambre?: boolean | chambreDefaultArgs<ExtArgs>
@@ -2574,6 +2698,7 @@ export namespace Prisma {
     name: "reservation"
     objects: {
       chambre: Prisma.$chambrePayload<ExtArgs>
+      facture: Prisma.$facturePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id_reservation: number
@@ -2983,6 +3108,7 @@ export namespace Prisma {
   export interface Prisma__reservationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     chambre<T extends chambreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, chambreDefaultArgs<ExtArgs>>): Prisma__chambreClient<$Result.GetResult<Prisma.$chambrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    facture<T extends reservation$factureArgs<ExtArgs> = {}>(args?: Subset<T, reservation$factureArgs<ExtArgs>>): Prisma__factureClient<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3418,6 +3544,25 @@ export namespace Prisma {
   }
 
   /**
+   * reservation.facture
+   */
+  export type reservation$factureArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    where?: factureWhereInput
+  }
+
+  /**
    * reservation without action
    */
   export type reservationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3642,6 +3787,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     role?: boolean
+    factures?: boolean | utilisateur$facturesArgs<ExtArgs>
+    _count?: boolean | UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["utilisateur"]>
 
   export type utilisateurSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3672,10 +3819,18 @@ export namespace Prisma {
   }
 
   export type utilisateurOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_utilisateur" | "nom" | "prenom" | "email" | "password" | "role", ExtArgs["result"]["utilisateur"]>
+  export type utilisateurInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    factures?: boolean | utilisateur$facturesArgs<ExtArgs>
+    _count?: boolean | UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type utilisateurIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type utilisateurIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $utilisateurPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "utilisateur"
-    objects: {}
+    objects: {
+      factures: Prisma.$facturePayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id_utilisateur: number
       nom: string
@@ -4077,6 +4232,7 @@ export namespace Prisma {
    */
   export interface Prisma__utilisateurClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    factures<T extends utilisateur$facturesArgs<ExtArgs> = {}>(args?: Subset<T, utilisateur$facturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4129,6 +4285,10 @@ export namespace Prisma {
      */
     omit?: utilisateurOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
+    /**
      * Filter, which utilisateur to fetch.
      */
     where: utilisateurWhereUniqueInput
@@ -4147,6 +4307,10 @@ export namespace Prisma {
      */
     omit?: utilisateurOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
+    /**
      * Filter, which utilisateur to fetch.
      */
     where: utilisateurWhereUniqueInput
@@ -4164,6 +4328,10 @@ export namespace Prisma {
      * Omit specific fields from the utilisateur
      */
     omit?: utilisateurOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
     /**
      * Filter, which utilisateur to fetch.
      */
@@ -4213,6 +4381,10 @@ export namespace Prisma {
      */
     omit?: utilisateurOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
+    /**
      * Filter, which utilisateur to fetch.
      */
     where?: utilisateurWhereInput
@@ -4261,6 +4433,10 @@ export namespace Prisma {
      */
     omit?: utilisateurOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
+    /**
      * Filter, which utilisateurs to fetch.
      */
     where?: utilisateurWhereInput
@@ -4303,6 +4479,10 @@ export namespace Prisma {
      * Omit specific fields from the utilisateur
      */
     omit?: utilisateurOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
     /**
      * The data needed to create a utilisateur.
      */
@@ -4349,6 +4529,10 @@ export namespace Prisma {
      * Omit specific fields from the utilisateur
      */
     omit?: utilisateurOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
     /**
      * The data needed to update a utilisateur.
      */
@@ -4416,6 +4600,10 @@ export namespace Prisma {
      */
     omit?: utilisateurOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
+    /**
      * The filter to search for the utilisateur to update in case it exists.
      */
     where: utilisateurWhereUniqueInput
@@ -4442,6 +4630,10 @@ export namespace Prisma {
      */
     omit?: utilisateurOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
+    /**
      * Filter which utilisateur to delete.
      */
     where: utilisateurWhereUniqueInput
@@ -4462,6 +4654,30 @@ export namespace Prisma {
   }
 
   /**
+   * utilisateur.factures
+   */
+  export type utilisateur$facturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    where?: factureWhereInput
+    orderBy?: factureOrderByWithRelationInput | factureOrderByWithRelationInput[]
+    cursor?: factureWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FactureScalarFieldEnum | FactureScalarFieldEnum[]
+  }
+
+  /**
    * utilisateur without action
    */
   export type utilisateurDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4473,6 +4689,1116 @@ export namespace Prisma {
      * Omit specific fields from the utilisateur
      */
     omit?: utilisateurOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: utilisateurInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model facture
+   */
+
+  export type AggregateFacture = {
+    _count: FactureCountAggregateOutputType | null
+    _avg: FactureAvgAggregateOutputType | null
+    _sum: FactureSumAggregateOutputType | null
+    _min: FactureMinAggregateOutputType | null
+    _max: FactureMaxAggregateOutputType | null
+  }
+
+  export type FactureAvgAggregateOutputType = {
+    id_facture: number | null
+    id_reservation: number | null
+    id_utilisateur: number | null
+  }
+
+  export type FactureSumAggregateOutputType = {
+    id_facture: number | null
+    id_reservation: number | null
+    id_utilisateur: number | null
+  }
+
+  export type FactureMinAggregateOutputType = {
+    id_facture: number | null
+    date_creation: Date | null
+    montant_total: string | null
+    id_reservation: number | null
+    id_utilisateur: number | null
+  }
+
+  export type FactureMaxAggregateOutputType = {
+    id_facture: number | null
+    date_creation: Date | null
+    montant_total: string | null
+    id_reservation: number | null
+    id_utilisateur: number | null
+  }
+
+  export type FactureCountAggregateOutputType = {
+    id_facture: number
+    date_creation: number
+    montant_total: number
+    id_reservation: number
+    id_utilisateur: number
+    _all: number
+  }
+
+
+  export type FactureAvgAggregateInputType = {
+    id_facture?: true
+    id_reservation?: true
+    id_utilisateur?: true
+  }
+
+  export type FactureSumAggregateInputType = {
+    id_facture?: true
+    id_reservation?: true
+    id_utilisateur?: true
+  }
+
+  export type FactureMinAggregateInputType = {
+    id_facture?: true
+    date_creation?: true
+    montant_total?: true
+    id_reservation?: true
+    id_utilisateur?: true
+  }
+
+  export type FactureMaxAggregateInputType = {
+    id_facture?: true
+    date_creation?: true
+    montant_total?: true
+    id_reservation?: true
+    id_utilisateur?: true
+  }
+
+  export type FactureCountAggregateInputType = {
+    id_facture?: true
+    date_creation?: true
+    montant_total?: true
+    id_reservation?: true
+    id_utilisateur?: true
+    _all?: true
+  }
+
+  export type FactureAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which facture to aggregate.
+     */
+    where?: factureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factures to fetch.
+     */
+    orderBy?: factureOrderByWithRelationInput | factureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: factureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned factures
+    **/
+    _count?: true | FactureCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FactureAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FactureSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FactureMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FactureMaxAggregateInputType
+  }
+
+  export type GetFactureAggregateType<T extends FactureAggregateArgs> = {
+        [P in keyof T & keyof AggregateFacture]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFacture[P]>
+      : GetScalarType<T[P], AggregateFacture[P]>
+  }
+
+
+
+
+  export type factureGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: factureWhereInput
+    orderBy?: factureOrderByWithAggregationInput | factureOrderByWithAggregationInput[]
+    by: FactureScalarFieldEnum[] | FactureScalarFieldEnum
+    having?: factureScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FactureCountAggregateInputType | true
+    _avg?: FactureAvgAggregateInputType
+    _sum?: FactureSumAggregateInputType
+    _min?: FactureMinAggregateInputType
+    _max?: FactureMaxAggregateInputType
+  }
+
+  export type FactureGroupByOutputType = {
+    id_facture: number
+    date_creation: Date
+    montant_total: string
+    id_reservation: number
+    id_utilisateur: number
+    _count: FactureCountAggregateOutputType | null
+    _avg: FactureAvgAggregateOutputType | null
+    _sum: FactureSumAggregateOutputType | null
+    _min: FactureMinAggregateOutputType | null
+    _max: FactureMaxAggregateOutputType | null
+  }
+
+  type GetFactureGroupByPayload<T extends factureGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FactureGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FactureGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FactureGroupByOutputType[P]>
+            : GetScalarType<T[P], FactureGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type factureSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_facture?: boolean
+    date_creation?: boolean
+    montant_total?: boolean
+    id_reservation?: boolean
+    id_utilisateur?: boolean
+    reservation?: boolean | reservationDefaultArgs<ExtArgs>
+    utilisateur?: boolean | utilisateurDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["facture"]>
+
+  export type factureSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_facture?: boolean
+    date_creation?: boolean
+    montant_total?: boolean
+    id_reservation?: boolean
+    id_utilisateur?: boolean
+    reservation?: boolean | reservationDefaultArgs<ExtArgs>
+    utilisateur?: boolean | utilisateurDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["facture"]>
+
+  export type factureSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_facture?: boolean
+    date_creation?: boolean
+    montant_total?: boolean
+    id_reservation?: boolean
+    id_utilisateur?: boolean
+    reservation?: boolean | reservationDefaultArgs<ExtArgs>
+    utilisateur?: boolean | utilisateurDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["facture"]>
+
+  export type factureSelectScalar = {
+    id_facture?: boolean
+    date_creation?: boolean
+    montant_total?: boolean
+    id_reservation?: boolean
+    id_utilisateur?: boolean
+  }
+
+  export type factureOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_facture" | "date_creation" | "montant_total" | "id_reservation" | "id_utilisateur", ExtArgs["result"]["facture"]>
+  export type factureInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reservation?: boolean | reservationDefaultArgs<ExtArgs>
+    utilisateur?: boolean | utilisateurDefaultArgs<ExtArgs>
+  }
+  export type factureIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reservation?: boolean | reservationDefaultArgs<ExtArgs>
+    utilisateur?: boolean | utilisateurDefaultArgs<ExtArgs>
+  }
+  export type factureIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reservation?: boolean | reservationDefaultArgs<ExtArgs>
+    utilisateur?: boolean | utilisateurDefaultArgs<ExtArgs>
+  }
+
+  export type $facturePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "facture"
+    objects: {
+      reservation: Prisma.$reservationPayload<ExtArgs>
+      utilisateur: Prisma.$utilisateurPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_facture: number
+      date_creation: Date
+      montant_total: string
+      id_reservation: number
+      id_utilisateur: number
+    }, ExtArgs["result"]["facture"]>
+    composites: {}
+  }
+
+  type factureGetPayload<S extends boolean | null | undefined | factureDefaultArgs> = $Result.GetResult<Prisma.$facturePayload, S>
+
+  type factureCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<factureFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FactureCountAggregateInputType | true
+    }
+
+  export interface factureDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['facture'], meta: { name: 'facture' } }
+    /**
+     * Find zero or one Facture that matches the filter.
+     * @param {factureFindUniqueArgs} args - Arguments to find a Facture
+     * @example
+     * // Get one Facture
+     * const facture = await prisma.facture.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends factureFindUniqueArgs>(args: SelectSubset<T, factureFindUniqueArgs<ExtArgs>>): Prisma__factureClient<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Facture that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {factureFindUniqueOrThrowArgs} args - Arguments to find a Facture
+     * @example
+     * // Get one Facture
+     * const facture = await prisma.facture.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends factureFindUniqueOrThrowArgs>(args: SelectSubset<T, factureFindUniqueOrThrowArgs<ExtArgs>>): Prisma__factureClient<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Facture that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factureFindFirstArgs} args - Arguments to find a Facture
+     * @example
+     * // Get one Facture
+     * const facture = await prisma.facture.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends factureFindFirstArgs>(args?: SelectSubset<T, factureFindFirstArgs<ExtArgs>>): Prisma__factureClient<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Facture that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factureFindFirstOrThrowArgs} args - Arguments to find a Facture
+     * @example
+     * // Get one Facture
+     * const facture = await prisma.facture.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends factureFindFirstOrThrowArgs>(args?: SelectSubset<T, factureFindFirstOrThrowArgs<ExtArgs>>): Prisma__factureClient<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Factures that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factureFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Factures
+     * const factures = await prisma.facture.findMany()
+     * 
+     * // Get first 10 Factures
+     * const factures = await prisma.facture.findMany({ take: 10 })
+     * 
+     * // Only select the `id_facture`
+     * const factureWithId_factureOnly = await prisma.facture.findMany({ select: { id_facture: true } })
+     * 
+     */
+    findMany<T extends factureFindManyArgs>(args?: SelectSubset<T, factureFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Facture.
+     * @param {factureCreateArgs} args - Arguments to create a Facture.
+     * @example
+     * // Create one Facture
+     * const Facture = await prisma.facture.create({
+     *   data: {
+     *     // ... data to create a Facture
+     *   }
+     * })
+     * 
+     */
+    create<T extends factureCreateArgs>(args: SelectSubset<T, factureCreateArgs<ExtArgs>>): Prisma__factureClient<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Factures.
+     * @param {factureCreateManyArgs} args - Arguments to create many Factures.
+     * @example
+     * // Create many Factures
+     * const facture = await prisma.facture.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends factureCreateManyArgs>(args?: SelectSubset<T, factureCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Factures and returns the data saved in the database.
+     * @param {factureCreateManyAndReturnArgs} args - Arguments to create many Factures.
+     * @example
+     * // Create many Factures
+     * const facture = await prisma.facture.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Factures and only return the `id_facture`
+     * const factureWithId_factureOnly = await prisma.facture.createManyAndReturn({
+     *   select: { id_facture: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends factureCreateManyAndReturnArgs>(args?: SelectSubset<T, factureCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Facture.
+     * @param {factureDeleteArgs} args - Arguments to delete one Facture.
+     * @example
+     * // Delete one Facture
+     * const Facture = await prisma.facture.delete({
+     *   where: {
+     *     // ... filter to delete one Facture
+     *   }
+     * })
+     * 
+     */
+    delete<T extends factureDeleteArgs>(args: SelectSubset<T, factureDeleteArgs<ExtArgs>>): Prisma__factureClient<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Facture.
+     * @param {factureUpdateArgs} args - Arguments to update one Facture.
+     * @example
+     * // Update one Facture
+     * const facture = await prisma.facture.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends factureUpdateArgs>(args: SelectSubset<T, factureUpdateArgs<ExtArgs>>): Prisma__factureClient<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Factures.
+     * @param {factureDeleteManyArgs} args - Arguments to filter Factures to delete.
+     * @example
+     * // Delete a few Factures
+     * const { count } = await prisma.facture.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends factureDeleteManyArgs>(args?: SelectSubset<T, factureDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Factures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factureUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Factures
+     * const facture = await prisma.facture.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends factureUpdateManyArgs>(args: SelectSubset<T, factureUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Factures and returns the data updated in the database.
+     * @param {factureUpdateManyAndReturnArgs} args - Arguments to update many Factures.
+     * @example
+     * // Update many Factures
+     * const facture = await prisma.facture.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Factures and only return the `id_facture`
+     * const factureWithId_factureOnly = await prisma.facture.updateManyAndReturn({
+     *   select: { id_facture: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends factureUpdateManyAndReturnArgs>(args: SelectSubset<T, factureUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Facture.
+     * @param {factureUpsertArgs} args - Arguments to update or create a Facture.
+     * @example
+     * // Update or create a Facture
+     * const facture = await prisma.facture.upsert({
+     *   create: {
+     *     // ... data to create a Facture
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Facture we want to update
+     *   }
+     * })
+     */
+    upsert<T extends factureUpsertArgs>(args: SelectSubset<T, factureUpsertArgs<ExtArgs>>): Prisma__factureClient<$Result.GetResult<Prisma.$facturePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Factures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factureCountArgs} args - Arguments to filter Factures to count.
+     * @example
+     * // Count the number of Factures
+     * const count = await prisma.facture.count({
+     *   where: {
+     *     // ... the filter for the Factures we want to count
+     *   }
+     * })
+    **/
+    count<T extends factureCountArgs>(
+      args?: Subset<T, factureCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FactureCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Facture.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FactureAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FactureAggregateArgs>(args: Subset<T, FactureAggregateArgs>): Prisma.PrismaPromise<GetFactureAggregateType<T>>
+
+    /**
+     * Group by Facture.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {factureGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends factureGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: factureGroupByArgs['orderBy'] }
+        : { orderBy?: factureGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, factureGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFactureGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the facture model
+   */
+  readonly fields: factureFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for facture.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__factureClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reservation<T extends reservationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, reservationDefaultArgs<ExtArgs>>): Prisma__reservationClient<$Result.GetResult<Prisma.$reservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    utilisateur<T extends utilisateurDefaultArgs<ExtArgs> = {}>(args?: Subset<T, utilisateurDefaultArgs<ExtArgs>>): Prisma__utilisateurClient<$Result.GetResult<Prisma.$utilisateurPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the facture model
+   */
+  interface factureFieldRefs {
+    readonly id_facture: FieldRef<"facture", 'Int'>
+    readonly date_creation: FieldRef<"facture", 'DateTime'>
+    readonly montant_total: FieldRef<"facture", 'String'>
+    readonly id_reservation: FieldRef<"facture", 'Int'>
+    readonly id_utilisateur: FieldRef<"facture", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * facture findUnique
+   */
+  export type factureFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    /**
+     * Filter, which facture to fetch.
+     */
+    where: factureWhereUniqueInput
+  }
+
+  /**
+   * facture findUniqueOrThrow
+   */
+  export type factureFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    /**
+     * Filter, which facture to fetch.
+     */
+    where: factureWhereUniqueInput
+  }
+
+  /**
+   * facture findFirst
+   */
+  export type factureFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    /**
+     * Filter, which facture to fetch.
+     */
+    where?: factureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factures to fetch.
+     */
+    orderBy?: factureOrderByWithRelationInput | factureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factures.
+     */
+    cursor?: factureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factures.
+     */
+    distinct?: FactureScalarFieldEnum | FactureScalarFieldEnum[]
+  }
+
+  /**
+   * facture findFirstOrThrow
+   */
+  export type factureFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    /**
+     * Filter, which facture to fetch.
+     */
+    where?: factureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factures to fetch.
+     */
+    orderBy?: factureOrderByWithRelationInput | factureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for factures.
+     */
+    cursor?: factureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of factures.
+     */
+    distinct?: FactureScalarFieldEnum | FactureScalarFieldEnum[]
+  }
+
+  /**
+   * facture findMany
+   */
+  export type factureFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    /**
+     * Filter, which factures to fetch.
+     */
+    where?: factureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of factures to fetch.
+     */
+    orderBy?: factureOrderByWithRelationInput | factureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing factures.
+     */
+    cursor?: factureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` factures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` factures.
+     */
+    skip?: number
+    distinct?: FactureScalarFieldEnum | FactureScalarFieldEnum[]
+  }
+
+  /**
+   * facture create
+   */
+  export type factureCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    /**
+     * The data needed to create a facture.
+     */
+    data: XOR<factureCreateInput, factureUncheckedCreateInput>
+  }
+
+  /**
+   * facture createMany
+   */
+  export type factureCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many factures.
+     */
+    data: factureCreateManyInput | factureCreateManyInput[]
+  }
+
+  /**
+   * facture createManyAndReturn
+   */
+  export type factureCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * The data used to create many factures.
+     */
+    data: factureCreateManyInput | factureCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * facture update
+   */
+  export type factureUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    /**
+     * The data needed to update a facture.
+     */
+    data: XOR<factureUpdateInput, factureUncheckedUpdateInput>
+    /**
+     * Choose, which facture to update.
+     */
+    where: factureWhereUniqueInput
+  }
+
+  /**
+   * facture updateMany
+   */
+  export type factureUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update factures.
+     */
+    data: XOR<factureUpdateManyMutationInput, factureUncheckedUpdateManyInput>
+    /**
+     * Filter which factures to update
+     */
+    where?: factureWhereInput
+    /**
+     * Limit how many factures to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * facture updateManyAndReturn
+   */
+  export type factureUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * The data used to update factures.
+     */
+    data: XOR<factureUpdateManyMutationInput, factureUncheckedUpdateManyInput>
+    /**
+     * Filter which factures to update
+     */
+    where?: factureWhereInput
+    /**
+     * Limit how many factures to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * facture upsert
+   */
+  export type factureUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    /**
+     * The filter to search for the facture to update in case it exists.
+     */
+    where: factureWhereUniqueInput
+    /**
+     * In case the facture found by the `where` argument doesn't exist, create a new facture with this data.
+     */
+    create: XOR<factureCreateInput, factureUncheckedCreateInput>
+    /**
+     * In case the facture was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<factureUpdateInput, factureUncheckedUpdateInput>
+  }
+
+  /**
+   * facture delete
+   */
+  export type factureDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
+    /**
+     * Filter which facture to delete.
+     */
+    where: factureWhereUniqueInput
+  }
+
+  /**
+   * facture deleteMany
+   */
+  export type factureDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which factures to delete
+     */
+    where?: factureWhereInput
+    /**
+     * Limit how many factures to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * facture without action
+   */
+  export type factureDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the facture
+     */
+    select?: factureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the facture
+     */
+    omit?: factureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: factureInclude<ExtArgs> | null
   }
 
 
@@ -4528,6 +5854,17 @@ export namespace Prisma {
   };
 
   export type UtilisateurScalarFieldEnum = (typeof UtilisateurScalarFieldEnum)[keyof typeof UtilisateurScalarFieldEnum]
+
+
+  export const FactureScalarFieldEnum: {
+    id_facture: 'id_facture',
+    date_creation: 'date_creation',
+    montant_total: 'montant_total',
+    id_reservation: 'id_reservation',
+    id_utilisateur: 'id_utilisateur'
+  };
+
+  export type FactureScalarFieldEnum = (typeof FactureScalarFieldEnum)[keyof typeof FactureScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4680,6 +6017,7 @@ export namespace Prisma {
     status?: EnumStatusFilter<"reservation"> | $Enums.Status
     id_chambre?: IntFilter<"reservation"> | number
     chambre?: XOR<ChambreScalarRelationFilter, chambreWhereInput>
+    facture?: XOR<FactureNullableScalarRelationFilter, factureWhereInput> | null
   }
 
   export type reservationOrderByWithRelationInput = {
@@ -4696,6 +6034,7 @@ export namespace Prisma {
     status?: SortOrder
     id_chambre?: SortOrder
     chambre?: chambreOrderByWithRelationInput
+    facture?: factureOrderByWithRelationInput
   }
 
   export type reservationWhereUniqueInput = Prisma.AtLeast<{
@@ -4715,6 +6054,7 @@ export namespace Prisma {
     status?: EnumStatusFilter<"reservation"> | $Enums.Status
     id_chambre?: IntFilter<"reservation"> | number
     chambre?: XOR<ChambreScalarRelationFilter, chambreWhereInput>
+    facture?: XOR<FactureNullableScalarRelationFilter, factureWhereInput> | null
   }, "id_reservation">
 
   export type reservationOrderByWithAggregationInput = {
@@ -4765,6 +6105,7 @@ export namespace Prisma {
     email?: StringFilter<"utilisateur"> | string
     password?: StringFilter<"utilisateur"> | string
     role?: EnumRoleFilter<"utilisateur"> | $Enums.Role
+    factures?: FactureListRelationFilter
   }
 
   export type utilisateurOrderByWithRelationInput = {
@@ -4774,6 +6115,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    factures?: factureOrderByRelationAggregateInput
   }
 
   export type utilisateurWhereUniqueInput = Prisma.AtLeast<{
@@ -4786,6 +6128,7 @@ export namespace Prisma {
     prenom?: StringFilter<"utilisateur"> | string
     password?: StringFilter<"utilisateur"> | string
     role?: EnumRoleFilter<"utilisateur"> | $Enums.Role
+    factures?: FactureListRelationFilter
   }, "id_utilisateur" | "email">
 
   export type utilisateurOrderByWithAggregationInput = {
@@ -4812,6 +6155,66 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"utilisateur"> | string
     password?: StringWithAggregatesFilter<"utilisateur"> | string
     role?: EnumRoleWithAggregatesFilter<"utilisateur"> | $Enums.Role
+  }
+
+  export type factureWhereInput = {
+    AND?: factureWhereInput | factureWhereInput[]
+    OR?: factureWhereInput[]
+    NOT?: factureWhereInput | factureWhereInput[]
+    id_facture?: IntFilter<"facture"> | number
+    date_creation?: DateTimeFilter<"facture"> | Date | string
+    montant_total?: StringFilter<"facture"> | string
+    id_reservation?: IntFilter<"facture"> | number
+    id_utilisateur?: IntFilter<"facture"> | number
+    reservation?: XOR<ReservationScalarRelationFilter, reservationWhereInput>
+    utilisateur?: XOR<UtilisateurScalarRelationFilter, utilisateurWhereInput>
+  }
+
+  export type factureOrderByWithRelationInput = {
+    id_facture?: SortOrder
+    date_creation?: SortOrder
+    montant_total?: SortOrder
+    id_reservation?: SortOrder
+    id_utilisateur?: SortOrder
+    reservation?: reservationOrderByWithRelationInput
+    utilisateur?: utilisateurOrderByWithRelationInput
+  }
+
+  export type factureWhereUniqueInput = Prisma.AtLeast<{
+    id_facture?: number
+    id_reservation?: number
+    AND?: factureWhereInput | factureWhereInput[]
+    OR?: factureWhereInput[]
+    NOT?: factureWhereInput | factureWhereInput[]
+    date_creation?: DateTimeFilter<"facture"> | Date | string
+    montant_total?: StringFilter<"facture"> | string
+    id_utilisateur?: IntFilter<"facture"> | number
+    reservation?: XOR<ReservationScalarRelationFilter, reservationWhereInput>
+    utilisateur?: XOR<UtilisateurScalarRelationFilter, utilisateurWhereInput>
+  }, "id_facture" | "id_reservation">
+
+  export type factureOrderByWithAggregationInput = {
+    id_facture?: SortOrder
+    date_creation?: SortOrder
+    montant_total?: SortOrder
+    id_reservation?: SortOrder
+    id_utilisateur?: SortOrder
+    _count?: factureCountOrderByAggregateInput
+    _avg?: factureAvgOrderByAggregateInput
+    _max?: factureMaxOrderByAggregateInput
+    _min?: factureMinOrderByAggregateInput
+    _sum?: factureSumOrderByAggregateInput
+  }
+
+  export type factureScalarWhereWithAggregatesInput = {
+    AND?: factureScalarWhereWithAggregatesInput | factureScalarWhereWithAggregatesInput[]
+    OR?: factureScalarWhereWithAggregatesInput[]
+    NOT?: factureScalarWhereWithAggregatesInput | factureScalarWhereWithAggregatesInput[]
+    id_facture?: IntWithAggregatesFilter<"facture"> | number
+    date_creation?: DateTimeWithAggregatesFilter<"facture"> | Date | string
+    montant_total?: StringWithAggregatesFilter<"facture"> | string
+    id_reservation?: IntWithAggregatesFilter<"facture"> | number
+    id_utilisateur?: IntWithAggregatesFilter<"facture"> | number
   }
 
   export type chambreCreateInput = {
@@ -4897,6 +6300,7 @@ export namespace Prisma {
     prix_total: string
     status?: $Enums.Status
     chambre: chambreCreateNestedOneWithoutReservationsInput
+    facture?: factureCreateNestedOneWithoutReservationInput
   }
 
   export type reservationUncheckedCreateInput = {
@@ -4912,6 +6316,7 @@ export namespace Prisma {
     prix_total: string
     status?: $Enums.Status
     id_chambre: number
+    facture?: factureUncheckedCreateNestedOneWithoutReservationInput
   }
 
   export type reservationUpdateInput = {
@@ -4926,6 +6331,7 @@ export namespace Prisma {
     prix_total?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     chambre?: chambreUpdateOneRequiredWithoutReservationsNestedInput
+    facture?: factureUpdateOneWithoutReservationNestedInput
   }
 
   export type reservationUncheckedUpdateInput = {
@@ -4941,6 +6347,7 @@ export namespace Prisma {
     prix_total?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     id_chambre?: IntFieldUpdateOperationsInput | number
+    facture?: factureUncheckedUpdateOneWithoutReservationNestedInput
   }
 
   export type reservationCreateManyInput = {
@@ -4992,6 +6399,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.Role
+    factures?: factureCreateNestedManyWithoutUtilisateurInput
   }
 
   export type utilisateurUncheckedCreateInput = {
@@ -5001,6 +6409,7 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.Role
+    factures?: factureUncheckedCreateNestedManyWithoutUtilisateurInput
   }
 
   export type utilisateurUpdateInput = {
@@ -5009,6 +6418,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    factures?: factureUpdateManyWithoutUtilisateurNestedInput
   }
 
   export type utilisateurUncheckedUpdateInput = {
@@ -5018,6 +6428,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    factures?: factureUncheckedUpdateManyWithoutUtilisateurNestedInput
   }
 
   export type utilisateurCreateManyInput = {
@@ -5044,6 +6455,57 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  }
+
+  export type factureCreateInput = {
+    date_creation?: Date | string
+    montant_total: string
+    reservation: reservationCreateNestedOneWithoutFactureInput
+    utilisateur: utilisateurCreateNestedOneWithoutFacturesInput
+  }
+
+  export type factureUncheckedCreateInput = {
+    id_facture?: number
+    date_creation?: Date | string
+    montant_total: string
+    id_reservation: number
+    id_utilisateur: number
+  }
+
+  export type factureUpdateInput = {
+    date_creation?: DateTimeFieldUpdateOperationsInput | Date | string
+    montant_total?: StringFieldUpdateOperationsInput | string
+    reservation?: reservationUpdateOneRequiredWithoutFactureNestedInput
+    utilisateur?: utilisateurUpdateOneRequiredWithoutFacturesNestedInput
+  }
+
+  export type factureUncheckedUpdateInput = {
+    id_facture?: IntFieldUpdateOperationsInput | number
+    date_creation?: DateTimeFieldUpdateOperationsInput | Date | string
+    montant_total?: StringFieldUpdateOperationsInput | string
+    id_reservation?: IntFieldUpdateOperationsInput | number
+    id_utilisateur?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type factureCreateManyInput = {
+    id_facture?: number
+    date_creation?: Date | string
+    montant_total: string
+    id_reservation: number
+    id_utilisateur: number
+  }
+
+  export type factureUpdateManyMutationInput = {
+    date_creation?: DateTimeFieldUpdateOperationsInput | Date | string
+    montant_total?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type factureUncheckedUpdateManyInput = {
+    id_facture?: IntFieldUpdateOperationsInput | number
+    date_creation?: DateTimeFieldUpdateOperationsInput | Date | string
+    montant_total?: StringFieldUpdateOperationsInput | string
+    id_reservation?: IntFieldUpdateOperationsInput | number
+    id_utilisateur?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -5217,6 +6679,11 @@ export namespace Prisma {
     isNot?: chambreWhereInput
   }
 
+  export type FactureNullableScalarRelationFilter = {
+    is?: factureWhereInput | null
+    isNot?: factureWhereInput | null
+  }
+
   export type reservationCountOrderByAggregateInput = {
     id_reservation?: SortOrder
     nom_client?: SortOrder
@@ -5303,6 +6770,16 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
+  export type FactureListRelationFilter = {
+    every?: factureWhereInput
+    some?: factureWhereInput
+    none?: factureWhereInput
+  }
+
+  export type factureOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type utilisateurCountOrderByAggregateInput = {
     id_utilisateur?: SortOrder
     nom?: SortOrder
@@ -5346,6 +6823,52 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type ReservationScalarRelationFilter = {
+    is?: reservationWhereInput
+    isNot?: reservationWhereInput
+  }
+
+  export type UtilisateurScalarRelationFilter = {
+    is?: utilisateurWhereInput
+    isNot?: utilisateurWhereInput
+  }
+
+  export type factureCountOrderByAggregateInput = {
+    id_facture?: SortOrder
+    date_creation?: SortOrder
+    montant_total?: SortOrder
+    id_reservation?: SortOrder
+    id_utilisateur?: SortOrder
+  }
+
+  export type factureAvgOrderByAggregateInput = {
+    id_facture?: SortOrder
+    id_reservation?: SortOrder
+    id_utilisateur?: SortOrder
+  }
+
+  export type factureMaxOrderByAggregateInput = {
+    id_facture?: SortOrder
+    date_creation?: SortOrder
+    montant_total?: SortOrder
+    id_reservation?: SortOrder
+    id_utilisateur?: SortOrder
+  }
+
+  export type factureMinOrderByAggregateInput = {
+    id_facture?: SortOrder
+    date_creation?: SortOrder
+    montant_total?: SortOrder
+    id_reservation?: SortOrder
+    id_utilisateur?: SortOrder
+  }
+
+  export type factureSumOrderByAggregateInput = {
+    id_facture?: SortOrder
+    id_reservation?: SortOrder
+    id_utilisateur?: SortOrder
   }
 
   export type reservationCreateNestedManyWithoutChambreInput = {
@@ -5412,6 +6935,18 @@ export namespace Prisma {
     connect?: chambreWhereUniqueInput
   }
 
+  export type factureCreateNestedOneWithoutReservationInput = {
+    create?: XOR<factureCreateWithoutReservationInput, factureUncheckedCreateWithoutReservationInput>
+    connectOrCreate?: factureCreateOrConnectWithoutReservationInput
+    connect?: factureWhereUniqueInput
+  }
+
+  export type factureUncheckedCreateNestedOneWithoutReservationInput = {
+    create?: XOR<factureCreateWithoutReservationInput, factureUncheckedCreateWithoutReservationInput>
+    connectOrCreate?: factureCreateOrConnectWithoutReservationInput
+    connect?: factureWhereUniqueInput
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -5428,8 +6963,98 @@ export namespace Prisma {
     update?: XOR<XOR<chambreUpdateToOneWithWhereWithoutReservationsInput, chambreUpdateWithoutReservationsInput>, chambreUncheckedUpdateWithoutReservationsInput>
   }
 
+  export type factureUpdateOneWithoutReservationNestedInput = {
+    create?: XOR<factureCreateWithoutReservationInput, factureUncheckedCreateWithoutReservationInput>
+    connectOrCreate?: factureCreateOrConnectWithoutReservationInput
+    upsert?: factureUpsertWithoutReservationInput
+    disconnect?: factureWhereInput | boolean
+    delete?: factureWhereInput | boolean
+    connect?: factureWhereUniqueInput
+    update?: XOR<XOR<factureUpdateToOneWithWhereWithoutReservationInput, factureUpdateWithoutReservationInput>, factureUncheckedUpdateWithoutReservationInput>
+  }
+
+  export type factureUncheckedUpdateOneWithoutReservationNestedInput = {
+    create?: XOR<factureCreateWithoutReservationInput, factureUncheckedCreateWithoutReservationInput>
+    connectOrCreate?: factureCreateOrConnectWithoutReservationInput
+    upsert?: factureUpsertWithoutReservationInput
+    disconnect?: factureWhereInput | boolean
+    delete?: factureWhereInput | boolean
+    connect?: factureWhereUniqueInput
+    update?: XOR<XOR<factureUpdateToOneWithWhereWithoutReservationInput, factureUpdateWithoutReservationInput>, factureUncheckedUpdateWithoutReservationInput>
+  }
+
+  export type factureCreateNestedManyWithoutUtilisateurInput = {
+    create?: XOR<factureCreateWithoutUtilisateurInput, factureUncheckedCreateWithoutUtilisateurInput> | factureCreateWithoutUtilisateurInput[] | factureUncheckedCreateWithoutUtilisateurInput[]
+    connectOrCreate?: factureCreateOrConnectWithoutUtilisateurInput | factureCreateOrConnectWithoutUtilisateurInput[]
+    createMany?: factureCreateManyUtilisateurInputEnvelope
+    connect?: factureWhereUniqueInput | factureWhereUniqueInput[]
+  }
+
+  export type factureUncheckedCreateNestedManyWithoutUtilisateurInput = {
+    create?: XOR<factureCreateWithoutUtilisateurInput, factureUncheckedCreateWithoutUtilisateurInput> | factureCreateWithoutUtilisateurInput[] | factureUncheckedCreateWithoutUtilisateurInput[]
+    connectOrCreate?: factureCreateOrConnectWithoutUtilisateurInput | factureCreateOrConnectWithoutUtilisateurInput[]
+    createMany?: factureCreateManyUtilisateurInputEnvelope
+    connect?: factureWhereUniqueInput | factureWhereUniqueInput[]
+  }
+
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
+  }
+
+  export type factureUpdateManyWithoutUtilisateurNestedInput = {
+    create?: XOR<factureCreateWithoutUtilisateurInput, factureUncheckedCreateWithoutUtilisateurInput> | factureCreateWithoutUtilisateurInput[] | factureUncheckedCreateWithoutUtilisateurInput[]
+    connectOrCreate?: factureCreateOrConnectWithoutUtilisateurInput | factureCreateOrConnectWithoutUtilisateurInput[]
+    upsert?: factureUpsertWithWhereUniqueWithoutUtilisateurInput | factureUpsertWithWhereUniqueWithoutUtilisateurInput[]
+    createMany?: factureCreateManyUtilisateurInputEnvelope
+    set?: factureWhereUniqueInput | factureWhereUniqueInput[]
+    disconnect?: factureWhereUniqueInput | factureWhereUniqueInput[]
+    delete?: factureWhereUniqueInput | factureWhereUniqueInput[]
+    connect?: factureWhereUniqueInput | factureWhereUniqueInput[]
+    update?: factureUpdateWithWhereUniqueWithoutUtilisateurInput | factureUpdateWithWhereUniqueWithoutUtilisateurInput[]
+    updateMany?: factureUpdateManyWithWhereWithoutUtilisateurInput | factureUpdateManyWithWhereWithoutUtilisateurInput[]
+    deleteMany?: factureScalarWhereInput | factureScalarWhereInput[]
+  }
+
+  export type factureUncheckedUpdateManyWithoutUtilisateurNestedInput = {
+    create?: XOR<factureCreateWithoutUtilisateurInput, factureUncheckedCreateWithoutUtilisateurInput> | factureCreateWithoutUtilisateurInput[] | factureUncheckedCreateWithoutUtilisateurInput[]
+    connectOrCreate?: factureCreateOrConnectWithoutUtilisateurInput | factureCreateOrConnectWithoutUtilisateurInput[]
+    upsert?: factureUpsertWithWhereUniqueWithoutUtilisateurInput | factureUpsertWithWhereUniqueWithoutUtilisateurInput[]
+    createMany?: factureCreateManyUtilisateurInputEnvelope
+    set?: factureWhereUniqueInput | factureWhereUniqueInput[]
+    disconnect?: factureWhereUniqueInput | factureWhereUniqueInput[]
+    delete?: factureWhereUniqueInput | factureWhereUniqueInput[]
+    connect?: factureWhereUniqueInput | factureWhereUniqueInput[]
+    update?: factureUpdateWithWhereUniqueWithoutUtilisateurInput | factureUpdateWithWhereUniqueWithoutUtilisateurInput[]
+    updateMany?: factureUpdateManyWithWhereWithoutUtilisateurInput | factureUpdateManyWithWhereWithoutUtilisateurInput[]
+    deleteMany?: factureScalarWhereInput | factureScalarWhereInput[]
+  }
+
+  export type reservationCreateNestedOneWithoutFactureInput = {
+    create?: XOR<reservationCreateWithoutFactureInput, reservationUncheckedCreateWithoutFactureInput>
+    connectOrCreate?: reservationCreateOrConnectWithoutFactureInput
+    connect?: reservationWhereUniqueInput
+  }
+
+  export type utilisateurCreateNestedOneWithoutFacturesInput = {
+    create?: XOR<utilisateurCreateWithoutFacturesInput, utilisateurUncheckedCreateWithoutFacturesInput>
+    connectOrCreate?: utilisateurCreateOrConnectWithoutFacturesInput
+    connect?: utilisateurWhereUniqueInput
+  }
+
+  export type reservationUpdateOneRequiredWithoutFactureNestedInput = {
+    create?: XOR<reservationCreateWithoutFactureInput, reservationUncheckedCreateWithoutFactureInput>
+    connectOrCreate?: reservationCreateOrConnectWithoutFactureInput
+    upsert?: reservationUpsertWithoutFactureInput
+    connect?: reservationWhereUniqueInput
+    update?: XOR<XOR<reservationUpdateToOneWithWhereWithoutFactureInput, reservationUpdateWithoutFactureInput>, reservationUncheckedUpdateWithoutFactureInput>
+  }
+
+  export type utilisateurUpdateOneRequiredWithoutFacturesNestedInput = {
+    create?: XOR<utilisateurCreateWithoutFacturesInput, utilisateurUncheckedCreateWithoutFacturesInput>
+    connectOrCreate?: utilisateurCreateOrConnectWithoutFacturesInput
+    upsert?: utilisateurUpsertWithoutFacturesInput
+    connect?: utilisateurWhereUniqueInput
+    update?: XOR<XOR<utilisateurUpdateToOneWithWhereWithoutFacturesInput, utilisateurUpdateWithoutFacturesInput>, utilisateurUncheckedUpdateWithoutFacturesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -5613,6 +7238,7 @@ export namespace Prisma {
     date_reservation: Date | string
     prix_total: string
     status?: $Enums.Status
+    facture?: factureCreateNestedOneWithoutReservationInput
   }
 
   export type reservationUncheckedCreateWithoutChambreInput = {
@@ -5627,6 +7253,7 @@ export namespace Prisma {
     date_reservation: Date | string
     prix_total: string
     status?: $Enums.Status
+    facture?: factureUncheckedCreateNestedOneWithoutReservationInput
   }
 
   export type reservationCreateOrConnectWithoutChambreInput = {
@@ -5696,6 +7323,24 @@ export namespace Prisma {
     create: XOR<chambreCreateWithoutReservationsInput, chambreUncheckedCreateWithoutReservationsInput>
   }
 
+  export type factureCreateWithoutReservationInput = {
+    date_creation?: Date | string
+    montant_total: string
+    utilisateur: utilisateurCreateNestedOneWithoutFacturesInput
+  }
+
+  export type factureUncheckedCreateWithoutReservationInput = {
+    id_facture?: number
+    date_creation?: Date | string
+    montant_total: string
+    id_utilisateur: number
+  }
+
+  export type factureCreateOrConnectWithoutReservationInput = {
+    where: factureWhereUniqueInput
+    create: XOR<factureCreateWithoutReservationInput, factureUncheckedCreateWithoutReservationInput>
+  }
+
   export type chambreUpsertWithoutReservationsInput = {
     update: XOR<chambreUpdateWithoutReservationsInput, chambreUncheckedUpdateWithoutReservationsInput>
     create: XOR<chambreCreateWithoutReservationsInput, chambreUncheckedCreateWithoutReservationsInput>
@@ -5726,6 +7371,203 @@ export namespace Prisma {
     photo?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type factureUpsertWithoutReservationInput = {
+    update: XOR<factureUpdateWithoutReservationInput, factureUncheckedUpdateWithoutReservationInput>
+    create: XOR<factureCreateWithoutReservationInput, factureUncheckedCreateWithoutReservationInput>
+    where?: factureWhereInput
+  }
+
+  export type factureUpdateToOneWithWhereWithoutReservationInput = {
+    where?: factureWhereInput
+    data: XOR<factureUpdateWithoutReservationInput, factureUncheckedUpdateWithoutReservationInput>
+  }
+
+  export type factureUpdateWithoutReservationInput = {
+    date_creation?: DateTimeFieldUpdateOperationsInput | Date | string
+    montant_total?: StringFieldUpdateOperationsInput | string
+    utilisateur?: utilisateurUpdateOneRequiredWithoutFacturesNestedInput
+  }
+
+  export type factureUncheckedUpdateWithoutReservationInput = {
+    id_facture?: IntFieldUpdateOperationsInput | number
+    date_creation?: DateTimeFieldUpdateOperationsInput | Date | string
+    montant_total?: StringFieldUpdateOperationsInput | string
+    id_utilisateur?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type factureCreateWithoutUtilisateurInput = {
+    date_creation?: Date | string
+    montant_total: string
+    reservation: reservationCreateNestedOneWithoutFactureInput
+  }
+
+  export type factureUncheckedCreateWithoutUtilisateurInput = {
+    id_facture?: number
+    date_creation?: Date | string
+    montant_total: string
+    id_reservation: number
+  }
+
+  export type factureCreateOrConnectWithoutUtilisateurInput = {
+    where: factureWhereUniqueInput
+    create: XOR<factureCreateWithoutUtilisateurInput, factureUncheckedCreateWithoutUtilisateurInput>
+  }
+
+  export type factureCreateManyUtilisateurInputEnvelope = {
+    data: factureCreateManyUtilisateurInput | factureCreateManyUtilisateurInput[]
+  }
+
+  export type factureUpsertWithWhereUniqueWithoutUtilisateurInput = {
+    where: factureWhereUniqueInput
+    update: XOR<factureUpdateWithoutUtilisateurInput, factureUncheckedUpdateWithoutUtilisateurInput>
+    create: XOR<factureCreateWithoutUtilisateurInput, factureUncheckedCreateWithoutUtilisateurInput>
+  }
+
+  export type factureUpdateWithWhereUniqueWithoutUtilisateurInput = {
+    where: factureWhereUniqueInput
+    data: XOR<factureUpdateWithoutUtilisateurInput, factureUncheckedUpdateWithoutUtilisateurInput>
+  }
+
+  export type factureUpdateManyWithWhereWithoutUtilisateurInput = {
+    where: factureScalarWhereInput
+    data: XOR<factureUpdateManyMutationInput, factureUncheckedUpdateManyWithoutUtilisateurInput>
+  }
+
+  export type factureScalarWhereInput = {
+    AND?: factureScalarWhereInput | factureScalarWhereInput[]
+    OR?: factureScalarWhereInput[]
+    NOT?: factureScalarWhereInput | factureScalarWhereInput[]
+    id_facture?: IntFilter<"facture"> | number
+    date_creation?: DateTimeFilter<"facture"> | Date | string
+    montant_total?: StringFilter<"facture"> | string
+    id_reservation?: IntFilter<"facture"> | number
+    id_utilisateur?: IntFilter<"facture"> | number
+  }
+
+  export type reservationCreateWithoutFactureInput = {
+    nom_client: string
+    prenom_client: string
+    telephone1: string
+    telephone2?: string | null
+    email: string
+    date_arrivee: Date | string
+    date_depart: Date | string
+    date_reservation: Date | string
+    prix_total: string
+    status?: $Enums.Status
+    chambre: chambreCreateNestedOneWithoutReservationsInput
+  }
+
+  export type reservationUncheckedCreateWithoutFactureInput = {
+    id_reservation?: number
+    nom_client: string
+    prenom_client: string
+    telephone1: string
+    telephone2?: string | null
+    email: string
+    date_arrivee: Date | string
+    date_depart: Date | string
+    date_reservation: Date | string
+    prix_total: string
+    status?: $Enums.Status
+    id_chambre: number
+  }
+
+  export type reservationCreateOrConnectWithoutFactureInput = {
+    where: reservationWhereUniqueInput
+    create: XOR<reservationCreateWithoutFactureInput, reservationUncheckedCreateWithoutFactureInput>
+  }
+
+  export type utilisateurCreateWithoutFacturesInput = {
+    nom: string
+    prenom: string
+    email: string
+    password: string
+    role?: $Enums.Role
+  }
+
+  export type utilisateurUncheckedCreateWithoutFacturesInput = {
+    id_utilisateur?: number
+    nom: string
+    prenom: string
+    email: string
+    password: string
+    role?: $Enums.Role
+  }
+
+  export type utilisateurCreateOrConnectWithoutFacturesInput = {
+    where: utilisateurWhereUniqueInput
+    create: XOR<utilisateurCreateWithoutFacturesInput, utilisateurUncheckedCreateWithoutFacturesInput>
+  }
+
+  export type reservationUpsertWithoutFactureInput = {
+    update: XOR<reservationUpdateWithoutFactureInput, reservationUncheckedUpdateWithoutFactureInput>
+    create: XOR<reservationCreateWithoutFactureInput, reservationUncheckedCreateWithoutFactureInput>
+    where?: reservationWhereInput
+  }
+
+  export type reservationUpdateToOneWithWhereWithoutFactureInput = {
+    where?: reservationWhereInput
+    data: XOR<reservationUpdateWithoutFactureInput, reservationUncheckedUpdateWithoutFactureInput>
+  }
+
+  export type reservationUpdateWithoutFactureInput = {
+    nom_client?: StringFieldUpdateOperationsInput | string
+    prenom_client?: StringFieldUpdateOperationsInput | string
+    telephone1?: StringFieldUpdateOperationsInput | string
+    telephone2?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    date_arrivee?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_depart?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_reservation?: DateTimeFieldUpdateOperationsInput | Date | string
+    prix_total?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    chambre?: chambreUpdateOneRequiredWithoutReservationsNestedInput
+  }
+
+  export type reservationUncheckedUpdateWithoutFactureInput = {
+    id_reservation?: IntFieldUpdateOperationsInput | number
+    nom_client?: StringFieldUpdateOperationsInput | string
+    prenom_client?: StringFieldUpdateOperationsInput | string
+    telephone1?: StringFieldUpdateOperationsInput | string
+    telephone2?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    date_arrivee?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_depart?: DateTimeFieldUpdateOperationsInput | Date | string
+    date_reservation?: DateTimeFieldUpdateOperationsInput | Date | string
+    prix_total?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    id_chambre?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type utilisateurUpsertWithoutFacturesInput = {
+    update: XOR<utilisateurUpdateWithoutFacturesInput, utilisateurUncheckedUpdateWithoutFacturesInput>
+    create: XOR<utilisateurCreateWithoutFacturesInput, utilisateurUncheckedCreateWithoutFacturesInput>
+    where?: utilisateurWhereInput
+  }
+
+  export type utilisateurUpdateToOneWithWhereWithoutFacturesInput = {
+    where?: utilisateurWhereInput
+    data: XOR<utilisateurUpdateWithoutFacturesInput, utilisateurUncheckedUpdateWithoutFacturesInput>
+  }
+
+  export type utilisateurUpdateWithoutFacturesInput = {
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  }
+
+  export type utilisateurUncheckedUpdateWithoutFacturesInput = {
+    id_utilisateur?: IntFieldUpdateOperationsInput | number
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  }
+
   export type reservationCreateManyChambreInput = {
     id_reservation?: number
     nom_client: string
@@ -5751,6 +7593,7 @@ export namespace Prisma {
     date_reservation?: DateTimeFieldUpdateOperationsInput | Date | string
     prix_total?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    facture?: factureUpdateOneWithoutReservationNestedInput
   }
 
   export type reservationUncheckedUpdateWithoutChambreInput = {
@@ -5765,6 +7608,7 @@ export namespace Prisma {
     date_reservation?: DateTimeFieldUpdateOperationsInput | Date | string
     prix_total?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    facture?: factureUncheckedUpdateOneWithoutReservationNestedInput
   }
 
   export type reservationUncheckedUpdateManyWithoutChambreInput = {
@@ -5779,6 +7623,33 @@ export namespace Prisma {
     date_reservation?: DateTimeFieldUpdateOperationsInput | Date | string
     prix_total?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  }
+
+  export type factureCreateManyUtilisateurInput = {
+    id_facture?: number
+    date_creation?: Date | string
+    montant_total: string
+    id_reservation: number
+  }
+
+  export type factureUpdateWithoutUtilisateurInput = {
+    date_creation?: DateTimeFieldUpdateOperationsInput | Date | string
+    montant_total?: StringFieldUpdateOperationsInput | string
+    reservation?: reservationUpdateOneRequiredWithoutFactureNestedInput
+  }
+
+  export type factureUncheckedUpdateWithoutUtilisateurInput = {
+    id_facture?: IntFieldUpdateOperationsInput | number
+    date_creation?: DateTimeFieldUpdateOperationsInput | Date | string
+    montant_total?: StringFieldUpdateOperationsInput | string
+    id_reservation?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type factureUncheckedUpdateManyWithoutUtilisateurInput = {
+    id_facture?: IntFieldUpdateOperationsInput | number
+    date_creation?: DateTimeFieldUpdateOperationsInput | Date | string
+    montant_total?: StringFieldUpdateOperationsInput | string
+    id_reservation?: IntFieldUpdateOperationsInput | number
   }
 
 

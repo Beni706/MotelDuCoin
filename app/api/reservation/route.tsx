@@ -15,7 +15,11 @@ export async function GET(request: Request) {
     };
 
     try {
-       const reservations = await prisma.reservation.findMany();
+       const reservations = await prisma.reservation.findMany({
+            include: {
+                facture: true,
+            }
+       });
         return NextResponse.json(reservations);
 
     } catch (error) {

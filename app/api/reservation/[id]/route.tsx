@@ -12,6 +12,9 @@ export async function GET(request: Request, { params }: { params: { id: string }
             where: {
                 id_reservation: id
             },
+            include: {
+                facture: true, // Inclure les informations de la facture associée
+            },
         });
         return NextResponse.json(reservation, { status: 200 });
         

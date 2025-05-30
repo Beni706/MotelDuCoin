@@ -151,6 +151,14 @@ exports.Prisma.UtilisateurScalarFieldEnum = {
   role: 'role'
 };
 
+exports.Prisma.FactureScalarFieldEnum = {
+  id_facture: 'id_facture',
+  date_creation: 'date_creation',
+  montant_total: 'montant_total',
+  id_reservation: 'id_reservation',
+  id_utilisateur: 'id_utilisateur'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -174,7 +182,8 @@ exports.Role = exports.$Enums.Role = {
 exports.Prisma.ModelName = {
   chambre: 'chambre',
   reservation: 'reservation',
-  utilisateur: 'utilisateur'
+  utilisateur: 'utilisateur',
+  facture: 'facture'
 };
 
 /**
