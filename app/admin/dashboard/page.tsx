@@ -1,65 +1,69 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { useToast } from "@/hooks/use-toast"
-import AdminHeader from "@/components/admin/admin-header"
-import ChambresPanel from "@/components/admin/chambres-panel"
-import ReservationsPanel from "@/components/admin/reservations-panel"
-import StatsPanel from "@/components/admin/stats-panel"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import AdminHeader from "@/components/admin/admin-header";
+import ChambresPanel from "@/components/admin/chambres-panel";
+import ReservationsPanel from "@/components/admin/reservations-panel";
+import StatsPanel from "@/components/admin/stats-panel";
+import FacturesPanel from "@/components/admin/factures-panel";
+import UtilisateursPanel from "@/components/admin/utilisateurs-panel";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function AdminDashboard() {
-  const router = useRouter()
-  const { toast } = useToast()
+  const router = useRouter();
+  const { toast } = useToast();
 
-  const [activeTab, setActiveTab] = useState<"stats" | "chambres" | "reservations">("stats")
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState<
+    "dashboard" | "chambres" | "reservations" | "factures" | "utilisateurs"
+  >("dashboard");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Vérifier l'authentification au chargement de la page
   useEffect(() => {
     const checkAuth = () => {
-      const token = localStorage.getItem("adminToken")
+      const token = localStorage.getItem("adminToken");
 
       if (!token) {
         toast({
           title: "Accès refusé",
           description: "Vous devez être connecté pour accéder à cette page.",
           variant: "destructive",
-        })
-        router.push("/admin/login")
-        return
+        });
+        router.push("/admin/login");
+        return;
       }
 
-      setIsAuthenticated(true)
-      setLoading(false)
-    }
+      setIsAuthenticated(true);
+      setLoading(false);
+    };
 
-    checkAuth()
-  }, [router, toast])
+    checkAuth();
+  }, [router, toast]);
 
   // Déconnexion
   const handleLogout = () => {
-    localStorage.removeItem("adminToken")
+    localStorage.removeItem("adminToken");
     toast({
       title: "Déconnexion réussie",
       description: "Vous avez été déconnecté avec succès.",
-    })
-    router.push("/admin/login")
-  }
+    });
+    router.push("/admin/login");
+  };
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
       </div>
-    )
+    );
   }
 
   if (!isAuthenticated) {
-    return null // La redirection sera gérée par useEffect
+    return null; // La redirection sera gérée par useEffect
   }
 
   return (
@@ -72,20 +76,14 @@ export default function AdminDashboard() {
         {/* Onglets */}
         <div className="flex border-b border-gray-200 mb-8">
           <button
-            onClick={() => setActiveTab("stats")}
+            onClick={() => setActiveTab("dashboard")}
             className={`py-3 px-6 font-medium text-sm ${
-              activeTab === "stats" ? "border-b-2 border-primary text-primary" : "text-gray-500 hover:text-gray-700"
+              activeTab === "dashboard"
+                ? "border-b-2 border-primary text-primary"
+                : "text-gray-500 hover:text-gray-700"
             }`}
           >
-            Statistiques
-          </button>
-          <button
-            onClick={() => setActiveTab("chambres")}
-            className={`py-3 px-6 font-medium text-sm ${
-              activeTab === "chambres" ? "border-b-2 border-primary text-primary" : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            Gestion des chambres
+            Tableau de bord
           </button>
           <button
             onClick={() => setActiveTab("reservations")}
@@ -97,11 +95,41 @@ export default function AdminDashboard() {
           >
             Réservations
           </button>
+          <button
+            onClick={() => setActiveTab("factures")}
+            className={`py-3 px-6 font-medium text-sm ${
+              activeTab === "factures"
+                ? "border-b-2 border-primary text-primary"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Factures
+          </button>
+          <button
+            onClick={() => setActiveTab("utilisateurs")}
+            className={`py-3 px-6 font-medium text-sm ${
+              activeTab === "utilisateurs"
+                ? "border-b-2 border-primary text-primary"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Utilisateurs
+          </button>
         </div>
 
         {/* Contenu des onglets */}
-        {activeTab === "stats" ? <StatsPanel /> : activeTab === "chambres" ? <ChambresPanel /> : <ReservationsPanel />}
+        <div className="mt-6">
+          {activeTab === "dashboard" ? (
+            <StatsPanel />
+          ) : activeTab === "reservations" ? (
+            <ReservationsPanel />
+          ) : activeTab === "factures" ? (
+            <FacturesPanel />
+          ) : (
+            <UtilisateursPanel />
+          )}
+        </div>
       </main>
     </div>
-  )
+  );
 }
