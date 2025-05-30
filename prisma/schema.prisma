@@ -5,8 +5,9 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../app/generated/prisma"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -21,14 +22,14 @@ enum Status {
 }
 
 model chambre {
-  id_chambre Int    @id @default(autoincrement())
+  id_chambre     Int     @id @default(autoincrement())
   numero_chambre Int
-  prix_nuit  Int
-  prix_jour  Int
-  type       String
-  capacite   String
-  photo      String?
-  
+  prix_nuit      Int
+  prix_jour      Int
+  type           String
+  capacite       String
+  photo          String?
+
   reservations reservation[]
 }
 
@@ -46,7 +47,7 @@ model reservation {
   status           Status   @default(EN_ATTENTE)
 
   id_chambre Int
-  chambre    chambre @relation(fields: [id_chambre], references: [id_chambre])
+  chambre    chambre  @relation(fields: [id_chambre], references: [id_chambre])
   facture    facture?
 }
 
@@ -56,21 +57,20 @@ enum Role {
 }
 
 model utilisateur {
-  id_utilisateur    Int    @id @default(autoincrement())
-  nom               String
-  prenom            String
-  email             String @unique
-  password          String
-  role              Role   @default(caissiere)
+  id_utilisateur Int    @id @default(autoincrement())
+  nom            String
+  prenom         String
+  email          String @unique
+  password       String
+  role           Role   @default(caissiere)
 
   factures facture[]
 }
 
-
 model facture {
   id_facture    Int      @id @default(autoincrement())
   date_creation DateTime @default(now())
-  montant_total String   // Correspond au prix_total de la réservation au moment de la création
+  montant_total String // Correspond au prix_total de la réservation au moment de la création
 
   // Relation à la réservation (chaque facture est liée à une seule réservation)
   id_reservation Int         @unique // @unique garantit une seule facture par réservation
