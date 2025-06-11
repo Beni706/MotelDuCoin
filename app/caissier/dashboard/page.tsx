@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import ReservationsPanel from "@/components/admin/reservations-panel";
+import ReservationsPanel from "@/components/admin/reservation-caissiere";
 import FacturesPanel from "@/components/admin/factures-panel";
 import StatsPanel from "@/components/admin/stats-panel";
 import AdminHeader from "@/components/admin/admin-header";
+import ChambresPanel from "@/components/admin/chambres-panel";
 
 export default function CaissierDashboard() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<
-    "dashboard" | "reservations" | "factures"
+    "dashboard" | "chambres" | "reservations" | "factures"
   >("dashboard");
 
   // Vérifier l'authentification au chargement de la page
@@ -47,6 +48,16 @@ export default function CaissierDashboard() {
             Tableau de bord
           </button>
           <button
+            onClick={() => setActiveTab("chambres")}
+            className={`py-3 px-6 font-medium text-sm ${
+              activeTab === "chambres"
+                ? "border-b-2 border-primary text-primary"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Chambres
+          </button>
+          <button
             onClick={() => setActiveTab("reservations")}
             className={`py-3 px-6 font-medium text-sm ${
               activeTab === "reservations"
@@ -71,6 +82,8 @@ export default function CaissierDashboard() {
         <div className="mt-6">
           {activeTab === "dashboard" ? (
             <StatsPanel />
+          ) : activeTab === "chambres" ? (
+            <ChambresPanel />
           ) : activeTab === "reservations" ? (
             <ReservationsPanel />
           ) : (

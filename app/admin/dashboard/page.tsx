@@ -86,6 +86,16 @@ export default function AdminDashboard() {
             Tableau de bord
           </button>
           <button
+            onClick={() => setActiveTab("chambres")}
+            className={`py-3 px-6 font-medium text-sm ${
+              activeTab === "chambres"
+                ? "border-b-2 border-primary text-primary"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Chambres
+          </button>
+          <button
             onClick={() => setActiveTab("reservations")}
             className={`py-3 px-6 font-medium text-sm ${
               activeTab === "reservations"
@@ -121,6 +131,8 @@ export default function AdminDashboard() {
         <div className="mt-6">
           {activeTab === "dashboard" ? (
             <StatsPanel />
+          ) : activeTab === "chambres" ? (
+            <ChambresPanel />
           ) : activeTab === "reservations" ? (
             <ReservationsPanel />
           ) : activeTab === "factures" ? (
